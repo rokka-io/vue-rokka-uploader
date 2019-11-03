@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <rokka-uploader :rokka-key="rokkaKey" :rokka-org="rokkaOrg" ></rokka-uploader>
+    <rokka-uploader
+      :rokka-key="rokkaKey"
+      :rokka-org="rokkaOrg"
+    ></rokka-uploader>
   </div>
 </template>
 
@@ -33,7 +36,8 @@ export default {
   color: #2c3e50;
 }
 
-.rokka-uploader .button, .rokka-uploader .rokka-fileupload {
+.rokka-uploader .button,
+.rokka-uploader .rokka-fileupload {
   padding: 5px;
   background-color: transparent;
   border: 1px solid;

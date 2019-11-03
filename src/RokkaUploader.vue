@@ -152,7 +152,7 @@ export default {
   methods: {
     setBiggerPreview(e) {
       const box = e.target.parentNode.getBoundingClientRect()
-      this.biggerPreviewLeft = box.left + box.width + 'px'
+      this.biggerPreviewLeft = box.left + box.width + 2 + 'px'
       this.biggerPreview = e.target.src
     },
     removeImage(file) {
