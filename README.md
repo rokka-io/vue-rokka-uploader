@@ -12,8 +12,9 @@ It uses [vue-upload-component](https://github.com/lian-yue/vue-upload-component)
 
 ## Demo
 
-See the [examples/vue-cli](./examples/vue-cli/src/App.vue) [examples/html](./examples/vue-cli/html/index.html)  or for a small example.
+See the [examples/vue-cli](./examples/vue-cli/src/App.vue) or [examples/html](./examples/vue-cli/html/index.html)  for a small example.
 
+[jsFiddle](https://jsfiddle.net/chregu/5pLo13n6/) example.
 
 ## Installation
 
