@@ -1,0 +1,89 @@
+<html>
+<head>
+    <!--
+        Use this for development
+    -->
+    <!-- <script src="https://unpkg.com/vue"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://rokka.io/index.umd.min.js"></script>
+    <script src="https://unpkg.com/vue-upload-component"></script>
+    <script src="https://unpkg.com/vue-rokka-uploader"></script>
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:5000/bundle.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            background-color: #f7f7f5;
+        }
+        a:link, a:visited {
+            color: black;
+        }
+
+        .text-center {
+            height: 100px;
+        }
+
+        .rokka-uploader {
+            height: 50vh
+        }
+        .rokka-uploader .button, .rokka-uploader .rokka-fileupload {
+            padding: 5px;
+            background-color: transparent;
+            border: 1px solid;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 16px;
+            font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        }
+
+        .rokka-uploader .drop-active h3 {
+            margin: -0.5em 0 0;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: #fff;
+            padding: 0;
+        }
+
+        .rokka-uploader .removeButton {
+            background-color: transparent;
+            border: 0;
+            font-weight: 100;
+            color: black;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div id="app">
+    <rokka-uploader :rokka-key="rokkaKey" :rokka-org="rokkaOrg" />
+</div>
+<script>
+  const rokkaKey = 'add your key' //read only key
+  const rokkaOrg = 'add your org'
+
+  new Vue({
+    el: '#app',
+    components: {
+      RokkaUploader,
+    },
+    data: {
+      rokkaKey: rokkaKey,
+      rokkaOrg: rokkaOrg,
+    }
+    }
+  )
+</script>
+</body>
+
+</html>

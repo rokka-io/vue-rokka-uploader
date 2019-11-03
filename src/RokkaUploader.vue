@@ -1,103 +1,101 @@
 <template>
-  <div class="drag">
-    <div class="upload">
-      <table v-if="files.length">
-        <tr v-for="file in files" :key="file.id">
-          <td class="remove">
-            <button
-              type="button"
-              class="removeButton"
-              @click.prevent="removeImage(file)"
-            >
-              x
-            </button>
-          </td>
-          <td class="thumb">
-            <img v-if="file.thumb" :src="file.thumb" />
-            <span v-else>No Image</span>
-          </td>
-          <td>{{ file.name }}</td>
-          <td>{{ formatSize(file.size) }}</td>
-          <br />
-          <td v-if="file.error">{{ file.error }}</td>
-          <td v-else-if="file.success">Uploaded</td>
-          <td v-else-if="file.active">Uploading</td>
-          <td v-else>To upload</td>
-        </tr>
-      </table>
+  <div class="rokka-uploader upload">
+    <table v-if="files.length">
+      <tr v-for="file in files" :key="file.id">
+        <td class="remove">
+          <button
+            type="button"
+            class="removeButton"
+            @click.prevent="removeImage(file)"
+          >
+            x
+          </button>
+        </td>
+        <td class="thumb">
+          <img v-if="file.thumb" :src="file.thumb" />
+          <span v-else>No Image</span>
+        </td>
+        <td>{{ file.name }}</td>
+        <td>{{ formatSize(file.size) }}</td>
+        <br />
+        <td v-if="file.error">{{ file.error }}</td>
+        <td v-else-if="file.success">Uploaded</td>
+        <td v-else-if="file.active">Uploading</td>
+        <td v-else>To upload</td>
+      </tr>
+    </table>
 
-      <div v-else>
-        <div class="text-center p-5">
-          <h4>Drop files anywhere to upload</h4>
-        </div>
+    <div v-else>
+      <div class="text-center p-5">
+        <h4>Drop files anywhere to upload</h4>
       </div>
+    </div>
 
-      <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
-        <h3>Drop files to upload</h3>
-      </div>
+    <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
+      <h3>Drop files to upload</h3>
+    </div>
 
-      <div class="rokka-uploader">
-        <file-upload
-          ref="upload"
-          v-model="files"
-          :custom-action="customAction"
-          class="rokka-fileupload"
-          :multiple="true"
-          :drop="true"
-          :drop-directory="true"
-          :thread="3"
-          @input-filter="inputFilter"
-        >
-          <slot>
-            Select files
-          </slot>
-        </file-upload>
-        <slot name="buttons">
-          <button
-            type="button"
-            class="button cancel"
-            @click.prevent="$refs.upload.clear()"
-          >
-            Clear list
-          </button>
-          <button
-            v-if="uploaded"
-            type="button"
-            class="button"
-            @click.prevent="$refs.upload.active = false"
-          >
-            Uploaded
-          </button>
-          <button
-            v-else-if="$refs.upload && !$refs.upload.active"
-            type="button"
-            class="button"
-            @click.prevent="$refs.upload.active = true"
-          >
-            Start Upload
-          </button>
-
-          <button
-            v-else
-            type="button"
-            class="button warning"
-            @click.prevent="$refs.upload.active = false"
-          >
-            Stop Upload
-          </button>
+    <div class="rokka-upload-component">
+      <vue-upload-component
+        ref="upload"
+        v-model="files"
+        :custom-action="customAction"
+        class="rokka-fileupload"
+        :multiple="true"
+        :drop="true"
+        :drop-directory="true"
+        :thread="3"
+        @input-filter="inputFilter"
+      >
+        <slot>
+          Select files
         </slot>
-      </div>
+      </vue-upload-component>
+      <slot name="buttons">
+        <button
+          type="button"
+          class="button cancel"
+          @click.prevent="$refs.upload.clear()"
+        >
+          Clear list
+        </button>
+        <button
+          v-if="uploaded"
+          type="button"
+          class="button"
+          @click.prevent="$refs.upload.active = false"
+        >
+          Uploaded
+        </button>
+        <button
+          v-else-if="$refs.upload && !$refs.upload.active"
+          type="button"
+          class="button"
+          @click.prevent="$refs.upload.active = true"
+        >
+          Start Upload
+        </button>
+
+        <button
+          v-else
+          type="button"
+          class="button warning"
+          @click.prevent="$refs.upload.active = false"
+        >
+          Stop Upload
+        </button>
+      </slot>
     </div>
   </div>
 </template>
 
 <script>
-import FileUpload from 'vue-upload-component'
+import VueUploadComponent from 'vue-upload-component'
 import rokka from 'rokka'
 
 export default {
   components: {
-    FileUpload,
+    VueUploadComponent,
   },
   props: {
     rokkaOrg: {
@@ -149,17 +147,22 @@ export default {
       if (this.imageMetadata) {
         metadata = this.imageMetadata(file)
       }
+      console.log(file.data)
       const request = rokkaC.sourceimages
         .create(this.rokkaOrg, file.name, file.file, metadata)
         .then(resp => {
           return resp
         })
         .catch(err => {
-          const message = err.body.error.message
-          if (message.includes('Invalid image format')) {
-            throw message.replace(/(Invalid image format [a-z/]+).*/, '$1')
+          if (err.body && err.body.error && err.body.error.message) {
+            const message = err.body.error.message
+            if (message.includes('Invalid image format')) {
+              throw 'Error: ' +
+                message.replace(/(Invalid image format [a-z/]+).*/, '$1')
+            }
+            throw 'Error: ' + err.body.error.message
           }
-          throw err.body.error.message
+          throw err
         })
       if (this.appendPromise) {
         return this.appendPromise(request)
@@ -205,7 +208,7 @@ export default {
 </script>
 
 <style scoped>
-.drag /deep/ .drop-active {
+.rokka-uploader /deep/ .drop-active {
   top: 0;
   bottom: 0;
   right: 0;
@@ -216,10 +219,10 @@ export default {
   text-align: center;
   background: #000;
 }
-.drag /deep/ .thumb {
+.rokka-uploader /deep/ .thumb {
   max-width: 80px;
 }
-.drag /deep/ .thumb img {
+.rokka-uploader /deep/ .thumb img {
   max-width: 80px;
   max-height: 60px;
   margin-left: auto;

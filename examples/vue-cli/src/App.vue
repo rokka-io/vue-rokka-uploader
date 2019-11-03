@@ -33,7 +33,7 @@ export default {
   color: #2c3e50;
 }
 
-.drag .button, .drag .rokka-fileupload {
+.rokka-uploader .button, .rokka-uploader .rokka-fileupload {
   padding: 5px;
   background-color: transparent;
   border: 1px solid;
@@ -43,7 +43,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
 
-.drag .drop-active h3 {
+.rokka-uploader .drop-active h3 {
   margin: -0.5em 0 0;
   position: absolute;
   top: 50%;
@@ -57,7 +57,7 @@ export default {
   padding: 0;
 }
 
-.drag .removeButton {
+.rokka-uploader .removeButton {
   background-color: transparent;
   border: 0;
   font-weight: 100;
@@ -65,12 +65,12 @@ export default {
   cursor: pointer;
 }
 
-.drag .remove {
+.rokka-uploader .remove {
   width: 5px;
   padding: 0;
 }
 
-.drag td {
+.rokka-uploader td {
   padding: 3px 0;
 }
 </style>
