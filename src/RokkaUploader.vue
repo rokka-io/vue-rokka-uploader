@@ -1,5 +1,12 @@
 <template>
   <div class="rokka-uploader upload">
+    <img
+      v-if="biggerPreview"
+      class="biggerPreview"
+      :style="{ left: biggerPreviewLeft }"
+      :src="biggerPreview"
+    />
+
     <table v-if="files.length">
       <tr v-for="file in files" :key="file.id">
         <td class="remove">
@@ -12,7 +19,12 @@
           </button>
         </td>
         <td class="thumb">
-          <img v-if="file.thumb" :src="file.thumb" />
+          <img
+            v-if="file.thumb"
+            :src="file.thumb"
+            @mouseenter="setBiggerPreview"
+            @mouseleave="biggerPreview = null"
+          />
           <span v-else>No Image</span>
         </td>
         <td>{{ file.name }}</td>
@@ -120,6 +132,8 @@ export default {
       files: [],
       active: false,
       uploaded: false,
+      biggerPreview: null,
+      biggerPreviewLeft: 0,
     }
   },
 
@@ -136,6 +150,11 @@ export default {
     },
   },
   methods: {
+    setBiggerPreview(e) {
+      const box = e.target.parentNode.getBoundingClientRect()
+      this.biggerPreviewLeft = box.left + box.width + 'px'
+      this.biggerPreview = e.target.src
+    },
     removeImage(file) {
       this.$refs.upload.remove(file)
     },
@@ -219,14 +238,26 @@ export default {
   text-align: center;
   background: #000;
 }
-.rokka-uploader /deep/ .thumb {
+.rokka-uploader .thumb {
   max-width: 80px;
 }
-.rokka-uploader /deep/ .thumb img {
+.rokka-uploader .thumb img {
   max-width: 80px;
   max-height: 60px;
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+.rokka-uploader .biggerPreview {
+  position: fixed;
+  left: 15vw;
+  z-index: 100;
+  max-width: 100%;
+  max-height: 80%;
+  perspective: 0;
+  backface-visibility: hidden;
+  will-change: transform;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
 }
 </style>
