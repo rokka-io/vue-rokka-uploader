@@ -1,0 +1,43 @@
+{
+  "name": "vue-rokka-uploader",
+  "version": "0.0.1",
+  "description": "Vue 2.x component for uploading images to rokka rokka.io",
+  "repository": "https://github.com/rokka-io/vue-rokka-uploader",
+  "author": "rokka.io",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf ./dist && rollup -c",
+    "watch": "rollup -c -w",
+    "lint": "eslint src/*",
+    "fix": "eslint src/* --fix"
+  },
+  "files": [
+    "/dist/*",
+    "/src/*"
+  ],
+  "engines": {
+    "node": "^10"
+  },
+  "module": "dist/index.esm.js",
+  "esnext": "src/index.js",
+  "main": "dist/index.umd.min.js",
+  "unpkg": "dist/index.umd.min.js",
+  "jsdelivr": "dist/index.umd.min.js",
+  "dependencies": {
+    "rokka": "^2.0.0",
+    "vue-upload-component": "^2.8.20"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-vue": "^5.2.3",
+    "rollup": "^1.26.3",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.2",
+    "rollup-plugin-vue": "^5.1.2",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
+  }
+}
