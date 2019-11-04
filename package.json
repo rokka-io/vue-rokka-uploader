@@ -24,7 +24,7 @@
   "unpkg": "dist/index.umd.min.js",
   "jsdelivr": "dist/index.umd.min.js",
   "dependencies": {
-    "rokka": "^2.0.0",
+    "rokka": "^2.0.1",
     "vue-upload-component": "^2.8.20"
   },
   "devDependencies": {
