@@ -5,9 +5,9 @@
     -->
     <!-- <script src="https://unpkg.com/vue"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://rokka.io/index.umd.min.js"></script>
-    <script src="https://unpkg.com/vue-upload-component"></script>
-    <script src="https://unpkg.com/vue-rokka-uploader"></script>
+    <script src="https://unpkg.com/rokka@2.0.1/dist/index.umd.min.js"></script>
+    <script src="https://unpkg.com/vue-upload-component@2.8.20/dist/vue-upload-component.js"></script>
+    <script src="https://unpkg.com/vue-rokka-uploader@0.0.7/dist/index.umd.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-rokka-uploader/dist/bundle.css">
     <style>
@@ -69,8 +69,8 @@
     <rokka-uploader :rokka-key="rokkaKey" :rokka-org="rokkaOrg" />
 </div>
 <script>
-  const rokkaKey = 'add your key' //read only key
-  const rokkaOrg = 'add your org'
+  const rokkaKey = 'add-your-key' //read only key
+  const rokkaOrg = 'add-your-org'
 
   new Vue({
     el: '#app',
