@@ -18,7 +18,7 @@
             x
           </button>
         </td>
-        <td class="thumb">
+        <td class="thumb" @click="$emit('image-clicked', file, 'thumb')">
           <img
             v-if="file.thumb"
             :src="file.thumb"
@@ -27,13 +27,29 @@
           />
           <span v-else>No Image</span>
         </td>
-        <td>{{ file.name }}</td>
-        <td>{{ formatSize(file.size) }}</td>
+        <td @click="$emit('image-clicked', file, 'name')">{{ file.name }}</td>
+        <td @click="$emit('image-clicked', file, 'size')">
+          {{ formatSize(file.size) }}
+        </td>
         <br />
-        <td v-if="file.error">{{ file.error }}</td>
-        <td v-else-if="file.success">Uploaded</td>
-        <td v-else-if="file.active">Uploading</td>
-        <td v-else>To upload</td>
+        <td v-if="file.error" @click="$emit('image-clicked', file, 'message')">
+          {{ file.error }}
+        </td>
+        <td
+          v-else-if="file.success"
+          @click="$emit('image-clicked', file, 'message')"
+        >
+          Uploaded
+        </td>
+        <td
+          v-else-if="file.active"
+          @click="$emit('image-clicked', file, 'message')"
+        >
+          Uploading
+        </td>
+        <td v-else @click="$emit('image-clicked', file, 'message')">
+          To upload
+        </td>
       </tr>
     </table>
 
@@ -184,7 +200,7 @@ export default {
           throw err
         })
       if (this.appendPromise) {
-        return this.appendPromise(request)
+        return this.appendPromise(request, file)
       }
       return request
     },
