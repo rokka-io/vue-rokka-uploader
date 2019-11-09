@@ -1,6 +1,6 @@
 {
   "name": "vue-rokka-uploader",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Vue 2.x component for uploading images to rokka rokka.io",
   "repository": "https://github.com/rokka-io/vue-rokka-uploader",
   "author": "rokka.io",
