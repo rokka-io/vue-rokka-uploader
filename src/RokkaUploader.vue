@@ -58,6 +58,7 @@
         :drop-directory="true"
         :thread="3"
         @input-filter="inputFilter"
+        @input-file="inputFile"
       >
         <slot>
           Select files
@@ -166,7 +167,6 @@ export default {
       if (this.imageMetadata) {
         metadata = this.imageMetadata(file)
       }
-      console.log(file.data)
       const request = rokkaC.sourceimages
         .create(this.rokkaOrg, file.name, file.file, metadata)
         .then(resp => {
@@ -209,6 +209,10 @@ export default {
           newFile.thumb = newFile.blob
         }
       }
+      this.$emit('input-filter', newFile, oldFile, prevent)
+    },
+    inputFile(a, b) {
+      this.$emit('input-file', a, b)
     },
     formatSize(size) {
       if (size > 1024 * 1024 * 1024 * 1024) {
