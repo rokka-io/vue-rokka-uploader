@@ -16,7 +16,7 @@
     "/src/*"
   ],
   "engines": {
-    "node": "^10"
+    "node": ">8"
   },
   "module": "dist/index.esm.js",
   "esnext": "src/index.js",
@@ -33,7 +33,7 @@
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.2.3",
-    "rollup": "^1.26.3",
+    "rollup": "^1.27.0",
     "rollup-plugin-css-only": "^1.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.2",
