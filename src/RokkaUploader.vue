@@ -133,7 +133,11 @@ export default {
     },
     rokkaKey: {
       type: String,
-      required: true,
+      default: null,
+    },
+    rokkaToken: {
+      type: String,
+      default: null,
     },
     appendPromise: {
       type: Function,
@@ -178,6 +182,7 @@ export default {
     customAction(file) {
       const rokkaC = rokka({
         apiKey: this.rokkaKey,
+        apiTokenGetCallback: this.rokkaToken ? () => this.rokkaToken : null
       })
       let metadata = {}
       if (this.imageMetadata) {
